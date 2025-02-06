@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>Vital Sign Judgement</title>
+</head>
+<body>
+    <div>
+        <h1>Vital Sign Judgement</h1>
+    </div>
+    <form method="post" action="/submit">
+        <div>
+            <h3>BP:
+                <input type="text" id="bpmax" name="BP_Max" required>
+                /
+                <input type="text" id="bpmin" name="BP_Min" required>
+            </h3>
+        </div>
+
+        <div>
+            <h3>Temperature:
+                <input type="text" id="temp" name="temperleture" required>
+            </h3>
+        </div>
+
+        <div>
+            <h3>Pulse:
+                <input type="text" id="pulse" name="pusle" required>
+            </h3>
+        </div>
+
+        <div>
+            <h3>Breath:
+                <input type="text" id="br" name="breath" required>
+            </h3>
+        </div>
+        <button type="submit">입력</button>
+    </form>
+</body>
+</html>
