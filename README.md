@@ -30,3 +30,17 @@
     <br>
   - 가능하다면 로그인 기능도 추가
 </h3>
+
+
+<h1>2024-02-07</h1>
+<h2>변경점</h2>
+<h3>
+  - humman vital sign data set (출처: https://www.kaggle.com/datasets/nasirayub2/human-vital-sign-dataset)를 활용해 머신러닝을 하여 위험도를 예층 하는 기능 추가
+</h3>
+
+<h2>앞으로 구현할 기능</h2>
+<h3>
+  - html을 조금 더 깔끔하게 디자인
+    <br>
+  - 가능하다면 로그인 기능도 추가
+</h3>
