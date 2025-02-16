@@ -4,6 +4,8 @@ from sklearn.impute import SimpleImputer
 from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import accuracy_score
 from xgboost import XGBClassifier
+import numpy as np
+
 
 # CSV 파일 로드 및 전처리
 def open_csv():
@@ -22,6 +24,7 @@ def open_csv():
     print(df.isnull().sum())  # 결측값 확인
 
     return df
+
 
 # XGBoost 모델로 학습 및 예측
 def XGBoost_Model(df):
@@ -56,33 +59,27 @@ def XGBoost_Model(df):
 
     print(f'XGBoost 모델 정확도: {acc:.4f}')
 
-    return xgb, acc
+    return xgb, acc, imputer, scaler  # 학습된 imputer와 scaler 반환
+
 
 # 예측 실행
-def predict_risk(model, input_data):
-    # 결측값 처리 및 데이터 표준화
-    imputer = SimpleImputer(strategy="mean")
-    input_data = imputer.fit_transform([input_data])  # 입력 데이터에 결측값이 있을 수 있어 처리
-    scaler = StandardScaler()
-    input_data = scaler.fit_transform(input_data)
+def predict_risk(model, imputer, scaler, input_data):
+    # 입력 데이터 숫자로 변환
+    input_data = np.array(input_data, dtype=np.float64).reshape(1, -1)
+
+    # 학습 때 사용한 imputer와 scaler 적용
+    input_data = imputer.transform(input_data)  # 학습 데이터와 동일한 방식으로 결측값 처리
+    input_data = scaler.transform(input_data)  # 학습 데이터와 동일한 방식으로 표준화
 
     # 예측
     prediction = model.predict(input_data)
-    if prediction[0] == 0:
-        return "Low Risk"
-    else:
-        return "High Risk"
+
+    return "Low Risk" if prediction[0] == 0 else "High Risk"
 
 
 def read_dataset(vital):
     df = open_csv()
-    model, accuracy = XGBoost_Model(df)
-    result = predict_risk(model, vital)
+    model, accuracy, imputer, scaler = XGBoost_Model(df)
+    result = predict_risk(model, imputer, scaler, vital)
     print(result)
     return result
-    # # 사용자 입력 받기
-    # user_input = get_user_input()
-    # if user_input:
-    #     # 사용자 입력으로 예측
-    #     result = predict_risk(model, user_input)
-    #     print(f"The predicted risk category is: {result}")

@@ -28,9 +28,9 @@ def submit():
 
     result_michin = ReadDataset.read_dataset([bpmax, bpmin, temp, pulse, br, gender, age])
     if result_michin == 'Low Risk':
-        result_michin = '머신러닝 데이터 결과: 안전하다고 예측됨'
+        result_michin = '머신러닝 데이터 결과: 위험도 낮음'
     elif result_michin == 'High Risk':
-        result_michin = '머신러닝 데이터 결과: 위독한 상황이라고 예측됨'
+        result_michin = '머신러닝 데이터 결과: 위험도 높음'
 
     if gender == '1':
         gender = 'female'
